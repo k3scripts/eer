@@ -1,0 +1,655 @@
+-- /RobloxCheatScript.lua
+
+-- GUI creation
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local TabHolder = Instance.new("Frame")
+
+-- Tabs
+local LegitTab = Instance.new("TextButton")
+local RageTab = Instance.new("TextButton")
+local FunTab = Instance.new("TextButton")
+local FarmingTab = Instance.new("TextButton")
+local SettingsTab = Instance.new("TextButton")
+
+-- Section Frames
+local LegitFrame = Instance.new("Frame")
+local RageFrame = Instance.new("Frame")
+local FunFrame = Instance.new("Frame")
+local FarmingFrame = Instance.new("Frame")
+local SettingsFrame = Instance.new("Frame")
+
+-- Configure ScreenGui
+ScreenGui.Name = "CheatGUI"
+ScreenGui.Parent = game.CoreGui
+
+-- MainFrame properties
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+MainFrame.Size = UDim2.new(0, 400, 0, 300)
+MainFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
+MainFrame.Active = true
+MainFrame.Draggable = true
+
+-- TabHolder properties
+TabHolder.Name = "TabHolder"
+TabHolder.Parent = MainFrame
+TabHolder.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+TabHolder.Size = UDim2.new(0, 100, 1, 0)
+TabHolder.Position = UDim2.new(0, 0, 0, 0)
+
+-- Tabs configuration
+local tabs = {LegitTab, RageTab, FunTab, FarmingTab, SettingsTab}
+local tabNames = {"Legit", "Rage", "Fun", "Farming", "Settings"}
+local sectionFrames = {LegitFrame, RageFrame, FunFrame, FarmingFrame, SettingsFrame}
+
+for i, tab in ipairs(tabs) do
+    tab.Name = tabNames[i] .. "Tab"
+    tab.Parent = TabHolder
+    tab.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+    tab.Size = UDim2.new(1, 0, 0, 30)
+    tab.Position = UDim2.new(0, 0, 0, 30 * (i - 1))
+    tab.Text = tabNames[i]
+end
+
+-- ContentFrame properties
+local ContentFrame = Instance.new("Frame")
+ContentFrame.Name = "ContentFrame"
+ContentFrame.Parent = MainFrame
+ContentFrame.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+ContentFrame.Size = UDim2.new(1, -100, 1, 0)
+ContentFrame.Position = UDim2.new(0, 100, 0, 0)
+
+-- Section Frames properties
+for i, frame in ipairs(sectionFrames) do
+    frame.Name = tabNames[i] .. "Frame"
+    frame.Parent = ContentFrame
+    frame.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+    frame.Size = UDim2.new(1, 0, 1, 0)
+    frame.Visible = false  -- Hide all frames initially
+end
+
+-- ShowTab function implementation
+local function ShowTab(tabName)
+    for i, frame in ipairs(sectionFrames) do
+        frame.Visible = (frame.Name == tabName .. "Frame")
+    end
+end
+
+-- Connect buttons to their respective tabs
+for i, tab in ipairs(tabs) do
+    tab.MouseButton1Click:Connect(function()
+        ShowTab(tabNames[i])
+    end)
+end
+
+-- Initialize by showing the first tab
+ShowTab("Legit")
+
+-- Populating Legit Section
+local aimbotLabel = Instance.new("TextLabel")
+local aimbotSlider = Instance.new("TextButton")
+local wallCheckCheckbox = Instance.new("TextButton")
+local friendlyCheckCheckbox = Instance.new("TextButton")
+
+aimbotLabel.Name = "AimbotLabel"
+aimbotLabel.Parent = LegitFrame
+aimbotLabel.Text = "Aimbot Strength"
+aimbotLabel.Size = UDim2.new(0, 200, 0, 30)
+aimbotLabel.Position = UDim2.new(0, 10, 0, 10)
+aimbotLabel.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+
+aimbotSlider.Name = "AimbotSlider"
+aimbotSlider.Parent = LegitFrame
+aimbotSlider.Text = "1"
+aimbotSlider.Size = UDim2.new(0, 200, 0, 30)
+aimbotSlider.Position = UDim2.new(0, 10, 0, 50)
+aimbotSlider.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+wallCheckCheckbox.Name = "WallCheckCheckbox"
+wallCheckCheckbox.Parent = LegitFrame
+wallCheckCheckbox.Text = "Wall Check"
+wallCheckCheckbox.Size = UDim2.new(0, 200, 0, 30)
+wallCheckCheckbox.Position = UDim2.new(0, 10, 0, 90)
+wallCheckCheckbox.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+friendlyCheckCheckbox.Name = "FriendlyCheckCheckbox"
+friendlyCheckCheckbox.Parent = LegitFrame
+friendlyCheckCheckbox.Text = "Friendly Check"
+friendlyCheckCheckbox.Size = UDim2.new(0, 200, 0, 30)
+friendlyCheckCheckbox.Position = UDim2.new(0, 10, 0, 130)
+friendlyCheckCheckbox.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+-- Populate Rage Section
+local silentAimbotCheckbox = Instance.new("TextButton")
+silentAimbotCheckbox.Name = "SilentAimbotCheckbox"
+silentAimbotCheckbox.Parent = RageFrame
+silentAimbotCheckbox.Text = "Silent Aimbot"
+silentAimbotCheckbox.Size = UDim2.new(0, 200, 0, 30)
+silentAimbotCheckbox.Position = UDim2.new(0, 10, 0, 10)
+silentAimbotCheckbox.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+local rapidFireCheckbox = Instance.new("TextButton")
+rapidFireCheckbox.Name = "RapidFireCheckbox"
+rapidFireCheckbox.Parent = RageFrame
+rapidFireCheckbox.Text = "Rapid Fire"
+rapidFireCheckbox.Size = UDim2.new(0, 200, 0, 30)
+rapidFireCheckbox.Position = UDim2.new(0, 10, 0, 90)
+rapidFireCheckbox.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+-- Populate Fun Section
+local walkspeedSlider = Instance.new("TextButton")
+walkspeedSlider.Name = "WalkspeedSlider"
+walkspeedSlider.Parent = FunFrame
+walkspeedSlider.Text = "Walkspeed"
+walkspeedSlider.Size = UDim2.new(0, 200, 0, 30)
+walkspeedSlider.Position = UDim2.new(0, 10, 0, 10)
+walkspeedSlider.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+local jumpHeightSlider = Instance.new("TextButton")
+jumpHeightSlider.Name = "JumpHeightSlider"
+jumpHeightSlider.Parent = FunFrame
+jumpHeightSlider.Text = "Jump Height"
+jumpHeightSlider.Size = UDim2.new(0, 200, 0, 30)
+jumpHeightSlider.Position = UDim2.new(0, 10, 0, 50)
+jumpHeightSlider.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+local noclipCheckbox = Instance.new("TextButton")
+noclipCheckbox.Name = "NoclipCheckbox"
+noclipCheckbox.Parent = FunFrame
+noclipCheckbox.Text = "Noclip"
+noclipCheckbox.Size = UDim2.new(0, 200, 0, 30)
+noclipCheckbox.Position = UDim2.new(0, 10, 0, 90)
+noclipCheckbox.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+local flyCheckbox = Instance.new("TextButton")
+flyCheckbox.Name = "FlyCheckbox"
+flyCheckbox.Parent = FunFrame
+flyCheckbox.Text = "Fly"
+flyCheckbox.Size = UDim2.new(0, 200, 0, 30)
+flyCheckbox.Position = UDim2.new(0, 10, 0, 130)
+flyCheckbox.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+-- Populate Farming Section
+local teleportBehindCheckbox = Instance.new("TextButton")
+teleportBehindCheckbox.Name = "TeleportBehindCheckbox"
+teleportBehindCheckbox.Parent = FarmingFrame
+teleportBehindCheckbox.Text = "Teleport Behind"
+teleportBehindCheckbox.Size = UDim2.new(0, 200, 0, 30)
+teleportBehindCheckbox.Position = UDim2.new(0, 10, 0, 10)
+teleportBehindCheckbox.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+local autofarm1Checkbox = Instance.new("TextButton")
+autofarm1Checkbox.Name = "Autofarm1Checkbox"
+autofarm1Checkbox.Parent = FarmingFrame
+autofarm1Checkbox.Text = "Autofarm 1"
+autofarm1Checkbox.Size = UDim2.new(0, 200, 0, 30)
+autofarm1Checkbox.Position = UDim2.new(0, 10, 0, 50)
+autofarm1Checkbox.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+local autofarm2Checkbox = Instance.new("TextButton")
+autofarm2Checkbox.Name = "Autofarm2Checkbox"
+autofarm2Checkbox.Parent = FarmingFrame
+autofarm2Checkbox.Text = "Autofarm 2"
+autofarm2Checkbox.Size = UDim2.new(0, 200, 0, 30)
+autofarm2Checkbox.Position = UDim2.new(0, 10, 0, 90)
+autofarm2Checkbox.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+-- Populate Settings Section
+local keybindsButton = Instance.new("TextButton")
+keybindsButton.Name = "KeybindsButton"
+keybindsButton.Parent = SettingsFrame
+keybindsButton.Text = "Keybinds"
+keybindsButton.Size = UDim2.new(0, 200, 0, 30)
+keybindsButton.Position = UDim2.new(0, 10, 0, 10)
+keybindsButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+local saveConfigButton = Instance.new("TextButton")
+saveConfigButton.Name = "SaveConfigButton"
+saveConfigButton.Parent = SettingsFrame
+saveConfigButton.Text = "Save Config"
+saveConfigButton.Size = UDim2.new(0, 200, 0, 30)
+saveConfigButton.Position = UDim2.new(0, 10, 0, 50)
+saveConfigButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+local loadConfigButton = Instance.new("TextButton")
+loadConfigButton.Name = "LoadConfigButton"
+loadConfigButton.Parent = SettingsFrame
+loadConfigButton.Text = "Load Config"
+loadConfigButton.Size = UDim2.new(0, 200, 0, 30)
+loadConfigButton.Position = UDim2.new(0, 10, 0, 90)
+loadConfigButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+local autoloadCheckbox = Instance.new("TextButton")
+autoloadCheckbox.Name = "AutoloadCheckbox"
+autoloadCheckbox.Parent = SettingsFrame
+autoloadCheckbox.Text = "Autoload"
+autoloadCheckbox.Size = UDim2.new(0, 200, 0, 30)
+autoloadCheckbox.Position = UDim2.new(0, 10, 0, 130)
+autoloadCheckbox.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+
+-- Aimbot Functionality
+local function activateAimbot(strength, wallCheck, friendlyCheck)
+    -- Aimbot Logic:
+    -- 1. Check for enemy targets within the player's field of view.
+    -- 2. Apply the strength modifier to control the precision of the aim.
+    -- 3. Perform wall check to avoid targeting enemies behind walls if enabled.
+    -- 4. Skip friendly targets if friendly check is enabled.
+    
+    game:GetService("RunService").Stepped:Connect(function()
+        local player = game.Players.LocalPlayer
+        local mouse = player:GetMouse()
+        
+        -- Example pseudo-implementation
+        for _, enemy in pairs(game.Workspace.Enemies:GetChildren()) do
+            if enemy:IsA("Model") and enemy:FindFirstChild("Humanoid") then
+                if (enemy.PrimaryPart.Position - player.Character.PrimaryPart.Position).magnitude <= 100 then
+                    -- Check if wall check is enabled
+                    if wallCheck then
+                        local ray = Ray.new(player.Character.Head.Position, (enemy.PrimaryPart.Position - player.Character.Head.Position).unit * 100)
+                        local hit = game.Workspace:FindPartOnRay(ray, player.Character)
+                        if hit and hit.Parent ~= enemy then
+                            continue
+                        end
+                    end
+                    -- Check if friendly check is enabled
+                    if friendlyCheck and enemy.TeamColor == player.TeamColor then
+                        continue
+                    end
+                    -- Adjust aim based on strength
+                    mouse.TargetFilter = enemy
+                    player.Character.HumanoidRootPart.CFrame = CFrame.new(player.Character.HumanoidRootPart.Position, enemy.PrimaryPart.Position)
+                end
+            end
+        end
+    end)
+end
+
+-- ESP Functionality
+local function activateESP(boxes, chams, outlines, bones, healthBar)
+    -- ESP Logic:
+    -- 1. Highlight enemies with visual cues such as boxes, chams, outlines, bones, and health bar.
+    -- 2. Enable/disable specific ESP features based on user selection.
+    
+    game:GetService("RunService").Stepped:Connect(function()
+        for _, enemy in pairs(game.Workspace.Enemies:GetChildren()) do
+            if enemy:IsA("Model") and enemy:FindFirstChild("Humanoid") then
+                -- Example implementation of ESP boxes
+                if boxes then
+                    -- Create box around enemy
+                    local box = Instance.new("BoxHandleAdornment")
+                    box.Adornee = enemy
+                    box.Size = enemy:GetExtentsSize()
+                    box.Color3 = Color3.new(1, 0, 0)
+                    box.Transparency = 0.5
+                    box.ZIndex = 10  -- Ensure it renders on top
+                    box.Parent = enemy
+                end
+
+                -- Implement chams (colored highlighting through walls)
+                if chams then
+                    for _, part in pairs(enemy:GetChildren()) do
+                        if part:IsA("BasePart") then
+                            local cham = Instance.new("Highlight")
+                            cham.Adornee = part
+                            cham.FillColor = Color3.new(0, 1, 0)
+                            cham.FillTransparency = 0.75
+                            cham.OutlineTransparency = 1
+                            cham.Parent = part
+                        end
+                    end
+                end
+
+                -- Implement outlines
+                if outlines then
+                    local outline = Instance.new("SelectionBox")
+                    outline.Adornee = enemy
+                    outline.Color3 = Color3.new(0, 0, 1)
+                    outline.LineThickness = 0.05
+                    outline.Parent = enemy
+                end
+
+                -- Implement bones (connecting parts with lines)
+                if bones then
+                    for _, part in pairs(enemy:GetChildren()) do
+                        if part:IsA("BasePart") then
+                            local attachment = Instance.new("Attachment", part)
+                            attachment.Name = "BoneAttachment"
+                        end
+                    end
+
+                    local boneConnector = Instance.new("RodConstraint")
+                    boneConnector.Color = BrickColor.new("White")
+                    boneConnector.Thickness = 0.1
+                    boneConnector.Visible = true
+                    boneConnector.Parent = enemy
+
+                    local head = enemy:FindFirstChild("Head")
+                    if head and head:FindFirstChild("BoneAttachment") then
+                        boneConnector.Attachment0 = head.BoneAttachment
+                    end
+
+                    local torso = enemy:FindFirstChild("Torso")
+                    if torso and torso:FindFirstChild("BoneAttachment") then
+                        boneConnector.Attachment1 = torso.BoneAttachment
+                    end
+                end
+
+                -- Implement health bar
+                if healthBar then
+                    local billboardGui = Instance.new("BillboardGui")
+                    billboardGui.Adornee = enemy
+                    billboardGui.Size = UDim2.new(4, 0, 0.5, 0)
+                    billboardGui.StudsOffset = Vector3.new(0, 4, 0)
+                    billboardGui.AlwaysOnTop = true
+                    billboardGui.Parent = enemy
+
+                    local frame = Instance.new("Frame", billboardGui)
+                    frame.Size = UDim2.new(1, 0, 1, 0)
+                    frame.BackgroundColor3 = Color3.new(1, 0, 0)
+
+                    local healthChange = enemy.Humanoid.HealthChanged:Connect(function(health)
+                        frame.Size = UDim2.new(health/enemy.Humanoid.MaxHealth, 0, 1, 0)
+                    end)
+
+                    enemy.Humanoid.Died:Connect(function()
+                        healthChange:Disconnect()
+                        billboardGui:Destroy()
+                    end)
+                end
+            end
+        end
+    end)
+end
+
+-- Triggerbot Functionality
+local function activateTriggerbot(ignoreKatanaDeflect)
+    -- Triggerbot Logic:
+    -- 1. Automatically fire when aiming at an enemy.
+    -- 2. Skip firing if the enemy is using katana deflect to avoid self-damage.
+    
+    game:GetService("RunService").Stepped:Connect(function()
+        local player = game.Players.LocalPlayer
+        local mouse = player:GetMouse()
+        
+        if mouse.Target and mouse.Target.Parent:IsA("Model") and mouse.Target.Parent:FindFirstChild("Humanoid") then
+            local enemy = mouse.Target.Parent
+            
+            -- Check for katana deflect
+            if ignoreKatanaDeflect and enemy:FindFirstChild("Katana") then
+                if enemy.Katana.Deflecting.Value == true then
+                    return
+                end
+            end
+            
+            -- Fire the weapon instantly
+            player.Character:FindFirstChild("Gun"):Activate()
+        end
+    end)
+end
+
+-- Silent Aimbot Functionality
+local function activateSilentAimbot()
+    -- Silent Aimbot Logic:
+    -- 1. Ensure all shots hit the enemy regardless of where the player is aiming.
+    -- 2. Works by redirecting the bullet trajectory to the enemy's hitbox.
+    
+    game:GetService("RunService").Stepped:Connect(function()
+        local player = game.Players.LocalPlayer
+        local mouse = player:GetMouse()
+        
+        if mouse.Target and mouse.Target.Parent:IsA("Model") and mouse.Target.Parent:FindFirstChild("Humanoid") then
+            local enemy = mouse.Target.Parent
+            -- Redirect shots
+            local bullet = Instance.new("Part")
+            bullet.CFrame = CFrame.new(player.Character.Head.Position, enemy.Head.Position)
+            bullet.Velocity = bullet.CFrame.LookVector * 3000  -- Speed of the bullet
+            bullet.Parent = game.Workspace
+        end
+    end)
+end
+
+-- Rapid Fire Functionality
+local function activateRapidFire()
+    -- Rapid Fire Logic:
+    -- 1. Bypass the firing rate limit and chambering delays, allowing the weapon to fire rapidly.
+    -- 2. Only fire rapidly while the shoot button is being held down.
+
+    local player = game.Players.LocalPlayer
+    local gun = player.Character:FindFirstChild("Gun")
+
+    if gun and gun:FindFirstChild("FireRate") and gun:FindFirstChild("ChamberTime") then
+        -- Override gun's fire rate and chambering delay
+        gun.FireRate.Value = 0.1    -- Extremely low fire rate for rapid shots
+        gun.ChamberTime.Value = 0.001 -- Minimize chambering time for instant firing
+    end
+
+-- Walkspeed and Jump Height Adjustment
+local function adjustWalkspeed(speed)
+    -- Adjust Walkspeed
+    local player = game.Players.LocalPlayer
+    player.Character.Humanoid.WalkSpeed = speed
+end
+
+local function adjustJumpHeight(height)
+    -- Adjust Jump Height
+    local player = game.Players.LocalPlayer
+    player.Character.Humanoid.JumpPower = height
+end
+
+-- Noclip Functionality
+local function toggleNoclip()
+    -- Noclip Logic:
+    -- 1. Allows the player to walk through walls and obstacles.
+    
+    game:GetService("RunService").Stepped:Connect(function()
+        local player = game.Players.LocalPlayer
+        player.Character.HumanoidRootPart.CanCollide = false
+    end)
+end
+
+-- Fly Functionality
+local function toggleFly(speed)
+    -- Fly Logic:
+    -- 1. Allows the player to fly with adjustable speed.
+    
+    local player = game.Players.LocalPlayer
+    local fly = false
+    
+    player:GetMouse().KeyDown:Connect(function(key)
+        if key == "f" then
+            fly = not fly
+            while fly do
+                player.Character.HumanoidRootPart.Velocity = player.Character.HumanoidRootPart.CFrame.LookVector * speed
+                game:GetService("RunService").Stepped:Wait()
+            end
+        end
+    end)
+end
+
+-- Teleportation Functionality
+local function teleportBehind()
+    -- Teleport Behind Logic:
+    -- 1. Teleport the player behind the nearest enemy.
+    
+    local player = game.Players.LocalPlayer
+    
+    for _, enemy in pairs(game.Workspace.Enemies:GetChildren()) do
+        if enemy:IsA("Model") and enemy:FindFirstChild("Humanoid") then
+            local behindPosition = enemy.PrimaryPart.Position - enemy.PrimaryPart.CFrame.LookVector * 5
+            player.Character:SetPrimaryPartCFrame(CFrame.new(behindPosition))
+        end
+    end
+end
+
+-- Autofarm Functionality
+local function activateAutofarm1()
+    -- Autofarm Logic 1:
+    -- 1. Teleports to enemies and aimbots their head with the gun in hand.
+    
+    game:GetService("RunService").Stepped:Connect(function()
+        local player = game.Players.LocalPlayer
+        for _, enemy in pairs(game.Workspace.Enemies:GetChildren()) do
+            if enemy:IsA("Model") and enemy:FindFirstChild("Humanoid") then
+                player.Character:SetPrimaryPartCFrame(CFrame.new(enemy.PrimaryPart.Position))
+                activateAimbot(5, true, false)
+                player.Character:FindFirstChild("Gun"):Activate()
+            end
+        end
+    end)
+end
+
+local function activateAutofarm2()
+    -- Autofarm Logic 2:
+    -- 1. Teleports to enemies and aimbots their head using another teleportation method.
+    
+    game:GetService("RunService").Stepped:Connect(function()
+        local player = game.Players.LocalPlayer
+        for _, enemy in pairs(game.Workspace.Enemies:GetChildren()) do
+            if enemy:IsA("Model") and enemy:FindFirstChild("Humanoid") then
+                player.Character:SetPrimaryPartCFrame(CFrame.new(enemy.PrimaryPart.Position + Vector3.new(0, 5, 0)))
+                activateAimbot(5, true, false)
+                player.Character:FindFirstChild("Gun"):Activate()
+            end
+        end
+    end)
+end
+
+-- Config Management
+local function saveConfig()
+    -- Save Configuration Logic:
+    -- Save all relevant settings to a config file.
+
+    local config = {
+        -- Player settings
+        Walkspeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed,
+        JumpHeight = game.Players.LocalPlayer.Character.Humanoid.JumpPower,
+
+        -- Legit Tab
+        AimbotStrength = tonumber(aimbotSlider.Text),
+        WallCheck = wallCheckCheckbox.Text == "Enabled",
+        FriendlyCheck = friendlyCheckCheckbox.Text == "Enabled",
+
+        -- Rage Tab
+        SilentAimbot = silentAimbotCheckbox.Text == "Enabled",
+        SilentAim = silentAimCheckbox.Text == "Enabled",
+        RapidFire = rapidFireCheckbox.Text == "Enabled",
+
+        -- Fun Tab
+        Noclip = noclipCheckbox.Text == "Enabled",
+        Fly = flyCheckbox.Text == "Enabled",
+
+        -- Farming Tab
+        Autofarm1 = autofarm1Checkbox.Text == "Enabled",
+        Autofarm2 = autofarm2Checkbox.Text == "Enabled",
+
+        -- ESP settings (example placeholders, assuming checkboxes exist)
+        ESPBoxes = espBoxesCheckbox and espBoxesCheckbox.Text == "Enabled",
+        ESPChams = espChamsCheckbox and espChamsCheckbox.Text == "Enabled",
+        ESPOutlines = espOutlinesCheckbox and espOutlinesCheckbox.Text == "Enabled",
+        ESPBones = espBonesCheckbox and espBonesCheckbox.Text == "Enabled",
+        ESPHealthBar = espHealthBarCheckbox and espHealthBarCheckbox.Text == "Enabled",
+
+        -- Triggerbot
+        Triggerbot = triggerbotCheckbox and triggerbotCheckbox.Text == "Enabled",
+    }
+    
+    writefile("config.txt", game:GetService("HttpService"):JSONEncode(config))
+end
+
+local function loadConfig()
+    -- Load Configuration Logic:
+    -- Load all relevant settings from a config file and apply them.
+
+    if not isfile("config.txt") then return end
+    local config = game:GetService("HttpService"):JSONDecode(readfile("config.txt"))
+
+    -- Apply Player settings
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = config.Walkspeed or 16
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = config.JumpHeight or 50
+
+    -- Apply Legit Tab settings
+    aimbotSlider.Text = tostring(config.AimbotStrength or 1)
+    wallCheckCheckbox.Text = config.WallCheck and "Enabled" or "Disabled"
+    friendlyCheckCheckbox.Text = config.FriendlyCheck and "Enabled" or "Disabled"
+
+    -- Apply Rage Tab settings
+    silentAimbotCheckbox.Text = config.SilentAimbot and "Enabled" or "Disabled"
+    silentAimCheckbox.Text = config.SilentAim and "Enabled" or "Disabled"
+    rapidFireCheckbox.Text = config.RapidFire and "Enabled" or "Disabled"
+
+    -- Apply Fun Tab settings
+    noclipCheckbox.Text = config.Noclip and "Enabled" or "Disabled"
+    flyCheckbox.Text = config.Fly and "Enabled" or "Disabled"
+
+    -- Apply Farming Tab settings
+    autofarm1Checkbox.Text = config.Autofarm1 and "Enabled" or "Disabled"
+    autofarm2Checkbox.Text = config.Autofarm2 and "Enabled" or "Disabled"
+
+    -- Apply ESP settings (example placeholders, assuming checkboxes exist)
+    if espBoxesCheckbox then espBoxesCheckbox.Text = config.ESPBoxes and "Enabled" or "Disabled" end
+    if espChamsCheckbox then espChamsCheckbox.Text = config.ESPChams and "Enabled" or "Disabled" end
+    if espOutlinesCheckbox then espOutlinesCheckbox.Text = config.ESPOutlines and "Enabled" or "Disabled" end
+    if espBonesCheckbox then espBonesCheckbox.Text = config.ESPBones and "Enabled" or "Disabled" end
+    if espHealthBarCheckbox then espHealthBarCheckbox.Text = config.ESPHealthBar and "Enabled" or "Disabled" end
+
+    -- Apply Triggerbot settings
+    if triggerbotCheckbox then triggerbotCheckbox.Text = config.Triggerbot and "Enabled" or "Disabled" end
+end
+
+local function toggleAutoload()
+    -- Autoload Configuration Logic
+    -- 1. Automatically load the config at the start of each execution.
+    
+    loadConfig()
+end
+
+-- Connect GUI elements to functionalities
+aimbotSlider.MouseButton1Click:Connect(function()
+    activateAimbot(aimbotSlider.Text, wallCheckCheckbox.Text, friendlyCheckCheckbox.Text)
+end)
+
+silentAimbotCheckbox.MouseButton1Click:Connect(function()
+    activateSilentAimbot()
+end)
+
+walkspeedSlider.MouseButton1Click:Connect(function()
+    adjustWalkspeed(walkspeedSlider.Text)
+end)
+
+jumpHeightSlider.MouseButton1Click:Connect(function()
+    adjustJumpHeight(jumpHeightSlider.Text)
+end)
+
+noclipCheckbox.MouseButton1Click:Connect(function()
+    toggleNoclip()
+end)
+
+flyCheckbox.MouseButton1Click:Connect(function()
+    toggleFly(50)  -- Example speed
+end)
+
+teleportBehindCheckbox.MouseButton1Click:Connect(function()
+    teleportBehind()
+end)
+
+autofarm1Checkbox.MouseButton1Click:Connect(function()
+    activateAutofarm1()
+end)
+
+autofarm2Checkbox.MouseButton1Click:Connect(function()
+    activateAutofarm2()
+end)
+
+saveConfigButton.MouseButton1Click:Connect(function()
+    saveConfig()
+end)
+
+loadConfigButton.MouseButton1Click:Connect(function()
+    loadConfig()
+end)
+
+autoloadCheckbox.MouseButton1Click:Connect(function()
+    toggleAutoload()
+end)
